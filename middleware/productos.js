@@ -1,13 +1,13 @@
 import 'reflect-metadata';
 import { plainToClass, classToPlain } from 'class-transformer';
 import { validate } from 'class-validator';
-import { DTO } from "../limit/token.js";
+import { DTO } from "../limit/tokenProd.js";
 import { Router } from "express";
 
-const middlewareVerify = Router();
+const middlewareProduc = Router();
 const DTOData = Router();
 
-middlewareVerify.use((req,res,next) => {
+middlewareProduc.use((req,res,next) => {
     if(!req.rateLimit) return; 
     let {payload} = req.data;
     const { iat, exp, ...newPayload } = payload;
@@ -31,6 +31,6 @@ DTOData.use( async(req,res,next) => {
 });
 
 export {
-    middlewareVerify,
+    middlewareProduc,
     DTOData
 };

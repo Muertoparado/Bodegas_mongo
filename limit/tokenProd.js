@@ -3,7 +3,7 @@ import { plainToClass, classToPlain } from 'class-transformer';
 import dotenv from 'dotenv';
 import { Router } from 'express';
 import { SignJWT, jwtVerify } from 'jose';
-import { User } from "../routers/storage/usuario.js";
+import { productos } from "../routers/storage/productos.js";
 import { Error } from "../routers/storage/mongo.js";
 
 dotenv.config("../");
@@ -12,7 +12,7 @@ const appVerify = Router();
 
 const DTO = (p1) => {
     const match = {
-        'usuario': User,
+        'product': productos,
         'mongo': Error
     };
     const inst = match[p1];
@@ -24,7 +24,7 @@ appToken.use("/:collecion", async(req,res)=>{
     try {
         let inst = DTO(req.params.collecion).atributos;
         const encoder = new TextEncoder();
-        const jwtconstructor = new SignJWT(Object.assign({}, classToPlain(inst)));
+        const jwtconstructor = new SignJWT(Object.assign({}, classToJSON(inst)));
         const jwt = await jwtconstructor
         .setProtectedHeader({alg:"HS256", typ: "JWT"})
         .setIssuedAt()

@@ -14,3 +14,21 @@ export async function con() {
     return {status: 500, message: error};
   }
 }
+
+export default async function connection(col) {
+  try {
+    const db = await con();
+    const res = db.collection(col);
+    return res;
+  } catch (error) {
+    return { status: 500, message: error };
+  }
+}
+const startTransaction = async () => {
+  const db = await con();
+  const session = db.client.startSession();
+  session.startTransaction();
+  return session;
+};
+
+export { startTransaction };

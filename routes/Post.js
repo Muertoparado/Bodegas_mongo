@@ -1,28 +1,28 @@
 import { plainToClass } from 'class-transformer';
 import { con } from "../db/atlas.js";
-import { limitGrt } from "../limit/config.js";
-import { middlewareVerify, DTOData } from "../middleware/campus.js";
-import { DTO } from "../limit/token.js";
+import { limitProduct } from "../limit/config.js";
+import { middlewareProduc, DTOData } from "../middleware/productos.js";
+import { DTO } from "../limit/tokenProd.js";
 import { Router } from "express";
 
-const app = Router();  
+const appBodegas = Router();  
 
 
-let db = await con();
-let usuario = db.collection("usuario");
+//let db = await con();
+//let productos = db.collection("productos")
 
-appBodegas.get("/", limitGrt(), middlewareVerify, async(req, res) => {
+appBodegas.get("/", limitProduct(), middlewareProduc, async(req, res) => {
     if(!req.rateLimit) return; 
     let db = await con();
-    let usuario = db.collection("usuario");
-    let result = await usuario.find({}).toArray();
+    let productos = db.collection("productos");
+    let result = await productos.find({}).toArray();
     res.send(result);
 });
 
-appBodegas.post("/", limitGrt(), middlewareVerify, DTOData, async(req, res) => {
+appBodegas.post("/", limitProduct(), middlewareProduc, DTOData, async(req, res) => {
     let resul;
     try {
-        resul = await usuario.insertOne(req.body);
+        resul = await productos.insertOne(req.body);
         res.status(201).send(resul);
     } catch (error) {
         console.log(plainToClass(DTO("mongo").class, error.errInfo.details.schemaRulesNotSatisfied));
@@ -30,4 +30,4 @@ appBodegas.post("/", limitGrt(), middlewareVerify, DTOData, async(req, res) => {
         res.send();
     }
 });
-export default appBodegas; 
+export default appBodegas;

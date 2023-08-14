@@ -106,6 +106,7 @@ db.createCollection("productos", {
     },
   },
 });
+
 use('bodegas');
 db.productos.insertMany([
     {

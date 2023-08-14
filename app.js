@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import appBodegas from './routes/Post.js';
-import { appToken, appVerify} from './limit/token.js';
+import { appToken, appVerify} from './limit/tokenProd.js';
 dotenv.config();
 
 let app = express();
