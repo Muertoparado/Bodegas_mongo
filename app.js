@@ -7,7 +7,7 @@ dotenv.config();
 let app = express();
 
 app.use(express.json());
-app.use("/user",appVerify, appBodegas);
+app.use("/app",appVerify, appBodegas);
 app.use("/token", appToken);
 
 let config = JSON.parse(process.env.MY_SERVER);

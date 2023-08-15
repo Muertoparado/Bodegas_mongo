@@ -12,6 +12,7 @@ const appBodegas = Router();
 //let productos = db.collection("productos")
 
 appBodegas.get("/", limitProduct(), middlewareProduc, async(req, res) => {
+    console.log("a");
     if(!req.rateLimit) return; 
     let db = await con();
     let productos = db.collection("productos");

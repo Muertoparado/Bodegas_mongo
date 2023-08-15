@@ -12,7 +12,7 @@ const appVerify = Router();
 
 const DTO = (p1) => {
     const match = {
-        'product': productos,
+        'productos': productos,
         'mongo': Error
     };
     const inst = match[p1];
@@ -20,11 +20,14 @@ const DTO = (p1) => {
     return { atributos: plainToClass(inst, {}, { ignoreDecorators: true }), class: inst}
 };
 
-appToken.use("/:collecion", async(req,res)=>{
+appToken.use("/:colecion", async(req,res)=>{
     try {
-        let inst = DTO(req.params.collecion).atributos;
+        const collectionName = req.params.coleccion;
+        const inst = DTO(collectionName).atributos;
+        
+        // Generar el token
         const encoder = new TextEncoder();
-        const jwtconstructor = new SignJWT(Object.assign({}, classToJSON(inst)));
+        const jwtconstructor = new SignJWT(classToPlain(inst));
         const jwt = await jwtconstructor
         .setProtectedHeader({alg:"HS256", typ: "JWT"})
         .setIssuedAt()

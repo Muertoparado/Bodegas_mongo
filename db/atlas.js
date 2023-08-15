@@ -14,7 +14,7 @@ export async function con() {
     return {status: 500, message: error};
   }
 }
-
+/* 
 export default async function connection(col) {
   try {
     const db = await con();
@@ -31,4 +31,4 @@ const startTransaction = async () => {
   return session;
 };
 
-export { startTransaction };
+export { startTransaction }; */

@@ -1,7 +1,7 @@
 import connection from "../db/atlas.js";
 
-class Productos {
-  _id;
+class productos {
+  id;
   nombre;
   descripcion;
   estado;
@@ -20,7 +20,7 @@ class Productos {
     try {
       const connection = await this.con();
       const resultado = await connection.insertOne({
-        _id: this._id,
+        id: this.id,
         nombre: this.nombre,
         descripcion: this.descripcion,
         estado: this.estado,
@@ -36,4 +36,4 @@ class Productos {
   }
 }
 
-export { Productos };
+export { productos };

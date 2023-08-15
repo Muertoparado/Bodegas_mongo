@@ -1,6 +1,5 @@
 import {Expose, Type, Transform} from 'class-transformer';
 
-
 export class productos {
     @Expose({name:'id'})
     @Transform(({value})=>{
