@@ -3,6 +3,8 @@ import { plainToClass, classToPlain } from 'class-transformer';
 import { validate } from 'class-validator';
 import { DTO } from "../limit/tokenProd.js";
 import { Router } from "express";
+import express from 'express'
+import { productos } from '../routers/storage/productos.js';
 
 const middlewareProduc = Router();
 const DTOData = Router();
@@ -17,7 +19,18 @@ const DTOData = Router();
     req.data = undefined;
     (!Verify) ? res.status(406).send({status: 406, message: "No Autorizado"}) : next();  
 }); */
+const appValidateData = express();
 
+appValidateData.use(async (req, res, next) => {
+  try {
+    const data = plainToClass(productos, req.body, { excludeExtraneousValues: true });
+    const validateData = await validate(data);
+    const validation = validateData.length > 0 ? validateData.flatMap(err => Object.values(err.constraints)): (req.body = JSON.parse(JSON.stringify(data)), []);
+    validation.length > 0 ? res.status(400).json({ status: 400, message: "Validation error", errors: validation}) : (req.body = JSON.parse(JSON.stringify(data)), next());
+  } catch (error) {
+    res.status(500).json({ status: 500, message: "Internal server error", error: error.message});
+  }
+});
 middlewareProduc.use((req, res, next) => {
   if (!req.rateLimit) return;
   let { payload } = req.data;

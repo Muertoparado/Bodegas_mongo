@@ -13,13 +13,13 @@ export class productos {
 
     @Expose({name:'nombre'})
     @IsDefined({message: ()=>{throw{status:401, message:`el mensaje es obligatorio `}}})
-    @Transform(({value})=>{if(/^[a-z A-Z].$/.test(value)) return value;
+    @Transform(({value})=>{if(/^[a-zA-Z\s]+$/.test(value)) return value;
         else throw {status:400, message:`el dato no cumple nn los parametros`};},{toClassOnly:true})
-        nombre:string;
+        nombre:String;
 
     @Expose({name:'descripcion'})
     @IsDefined({message: ()=>{throw{status:401, message:`el mensaje es obligatorio `}}})
-    @Transform(({value})=>{if(/^[a-z A-Z].$/.test(value)) return value;
+    @Transform(({value})=>{if(/^[a-zA-Z\s]+$/.test(value)) return value;
         else throw {status:400, message:`el dato no g cumple los parametros`};},{toClassOnly:true})
         descripcion:string;
 
@@ -49,7 +49,7 @@ export class productos {
         update_by:number; 
 
     @Expose({name:'created_at'})
-    @Transform(({value})=>{if(/^[a-z A-Z 0-9].$/.test(value)) return value;
+    @Transform(({value})=>{if(/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
         else throw {status:400, message:`el dato cre no cumple los parametros`};},{toClassOnly:true})
         created_at:Date;
 
@@ -66,8 +66,8 @@ export class productos {
     constructor(data:Partial<productos>) {
         Object.assign(this, data);
         this.id = 0;
-        this.nombre = "";
-        this.descripcion="";
+        this.nombre
+        this.descripcion
         this.estado = 0;
         this.created_by = 0;
         this.update_by = 0;
