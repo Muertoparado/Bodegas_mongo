@@ -7,7 +7,7 @@ import { Router } from "express";
 const middlewareProduc = Router();
 const DTOData = Router();
 
-middlewareProduc.use((req,res,next) => {
+/* middlewareProduc.use((req,res,next) => {
     if(!req.rateLimit) return; 
     let {payload} = req.data;
     const { iat, exp, ...newPayload } = payload;
@@ -16,6 +16,24 @@ middlewareProduc.use((req,res,next) => {
     let Verify = Clone === JSON.stringify(payload);
     req.data = undefined;
     (!Verify) ? res.status(406).send({status: 406, message: "No Autorizado"}) : next();  
+}); */
+
+middlewareProduc.use((req, res, next) => {
+  if (!req.rateLimit) return;
+  let { payload } = req.data;
+  const { iat, exp, ...newPayload } = payload;
+  payload = newPayload;
+  const convertDateProperties = payload => ({
+    ...payload,
+    created_at: new Date(payload.created_at),
+    updated_at: new Date(payload.updated_at),
+    deleted_at: new Date(payload.deletd_at)
+  });
+  const payloadDateObjects = convertDateProperties(payload);
+  const Clone = convertDateProperties(payload);
+  const Verify = JSON.stringify(Clone).replace(/\s+/g, '') === JSON.stringify(payloadDateObjects).replace(/\s+/g, '');
+  req.data = undefined;
+  !Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next();
 });
 
 DTOData.use( async(req,res,next) => {

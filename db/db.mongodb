@@ -83,23 +83,23 @@ db.createCollection("productos", {
           description: "Estado del producto",
         },
         created_by: {
-          bsonType: ["int"],
+          bsonType: "int",
           description: "ID del creador del producto",
         },
         update_by: {
-          bsonType: ["int"],
+          bsonType: "int",  
           description: "ID del usuario que realizó la actualización",
         },
         created_at: {
-          bsonType: ["date"],
+          bsonType: "string",
           description: "Fecha de creación del producto",
         },
         updated_at: {
-          bsonType: ["date"],
+          bsonType: "string",
           description: "Fecha de actualización del producto",
         },
         deleted_at: {
-          bsonType: ["date"],
+          bsonType: "string",
           description: "Fecha de eliminación del producto",
         },
       },
