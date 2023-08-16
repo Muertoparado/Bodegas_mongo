@@ -20,26 +20,23 @@ const DTO = (p1) => {
     return { atributos: plainToClass(inst, {}, { ignoreDecorators: true }), class: inst}
 };
 
-appToken.use("/:colecion", async(req,res)=>{
+appToken.use('/:collection' ,async(req,res)=>{
     try {
-        const collectionName = req.params.coleccion;
-        const inst = DTO(collectionName).atributos;
-        
-        // Generar el token
+        let inst = DTO(req.params.collection).atributos;
         const encoder = new TextEncoder();
-        const jwtconstructor = new SignJWT(classToPlain(inst));
+        const jwtconstructor = new SignJWT(Object.assign({},  classToPlain(inst)));
         const jwt = await jwtconstructor
         .setProtectedHeader({alg:"HS256", typ: "JWT"})
         .setIssuedAt()
         .setExpirationTime("30m")
         .sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
-        res.status(201).send({status: 201, message: jwt});
+        res.status(201).send({status: 201,jwt});
     } catch (error) {
-        res.status(error.status).send(error);
+        res.status(404).send({status: 404,message: 'Token solicitado no existente'})
     }
-})
+});
 
-appVerify.use("/", async(req,res,next)=>{
+appVerify.use("/", async(req,res, next)=>{
     const {authorization} = req.headers;
     if (!authorization) return res.status(400).send({status: 400, token: "Token no enviado"});
     try {
@@ -54,6 +51,7 @@ appVerify.use("/", async(req,res,next)=>{
         res.status(498).send({status: 498, token: "Token caducado"});
     }
 })
+
 
 export {
     appToken,

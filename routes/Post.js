@@ -8,8 +8,8 @@ import { Router } from "express";
 const appBodegas = Router();  
 
 
-//let db = await con();
-//let productos = db.collection("productos")
+let db = await con();
+let productos = db.collection("productos")
 
 appBodegas.get("/", limitProduct(), middlewareProduc, async(req, res) => {
     console.log("a");

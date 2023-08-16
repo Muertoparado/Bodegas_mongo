@@ -83,23 +83,23 @@ db.createCollection("productos", {
           description: "Estado del producto",
         },
         created_by: {
-          bsonType: ["int", "null"],
+          bsonType: ["int"],
           description: "ID del creador del producto",
         },
         update_by: {
-          bsonType: ["int", "null"],
+          bsonType: ["int"],
           description: "ID del usuario que realizó la actualización",
         },
         created_at: {
-          bsonType: ["date", "null"],
+          bsonType: ["date"],
           description: "Fecha de creación del producto",
         },
         updated_at: {
-          bsonType: ["date", "null"],
+          bsonType: ["date"],
           description: "Fecha de actualización del producto",
         },
         deleted_at: {
-          bsonType: ["date", "null"],
+          bsonType: ["date"],
           description: "Fecha de eliminación del producto",
         },
       },
@@ -108,27 +108,16 @@ db.createCollection("productos", {
 });
 
 use('bodegas');
-db.productos.insertMany([
+db.productos.insertOne([
     {
       id: 1,
-      nombre: "producto0",
-      descripcion: "producto0",
+      nombre: "producto",
+      descripcion: "producto",
       estado: 1,
       created_by: 16,
-      update_by: null,
-      created_at: "",
-      updated_at:"",
-      deleted_at: null,
-    },
-    {
-      id: 2,
-      nombre: "producto1",
-      descripcion: "producto1",
-      estado: 1,
-      created_by: 14,
-      update_by: null,
-      created_at: "",
-      updated_at: "",
-      deleted_at: null,
+      update_by: 2,
+      created_at: "2022-05-01",
+      updated_at:"2022-05-01",
+      deleted_at: "2022-05-01",
     }
 ]);
