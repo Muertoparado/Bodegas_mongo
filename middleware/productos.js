@@ -62,6 +62,7 @@ DTOData.use( async(req,res,next) => {
 });
 
 export {
+    appValidateData,
     middlewareProduc,
     DTOData
 };

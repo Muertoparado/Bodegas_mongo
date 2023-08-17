@@ -30,7 +30,7 @@ __decorate([
         if (Math.floor(value) && typeof value === 'number')
             return Math.floor(value);
         else
-            throw { status: 400, message: `el dato no eee cumple los parametros` };
+            throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], productos.prototype, "id", void 0);
@@ -41,7 +41,7 @@ __decorate([
         if (/^[a-zA-Z\s]+$/.test(value))
             return value;
         else
-            throw { status: 400, message: `el dato no cumple nn los parametros` };
+            throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", String)
 ], productos.prototype, "nombre", void 0);
@@ -52,7 +52,7 @@ __decorate([
         if (/^[a-zA-Z\s]+$/.test(value))
             return value;
         else
-            throw { status: 400, message: `el dato no g cumple los parametros` };
+            throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", String)
 ], productos.prototype, "descripcion", void 0);
@@ -63,7 +63,7 @@ __decorate([
         if (Math.floor(value) && typeof value === 'number')
             return Math.floor(value);
         else
-            throw { status: 400, message: `el datogrt no cumple los parametros` };
+            throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], productos.prototype, "estado", void 0);
@@ -73,7 +73,7 @@ __decorate([
         if (Math.floor(value) && typeof value === 'number')
             return Math.floor(value);
         else
-            throw { status: 400, message: `el dato hh no cumple los parametros` };
+            throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], productos.prototype, "created_by", void 0);
@@ -83,7 +83,7 @@ __decorate([
         if (Math.floor(value) && typeof value === 'number')
             return Math.floor(value);
         else
-            throw { status: 400, message: `el dato no yy cumple los parametros` };
+            throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], productos.prototype, "update_by", void 0);
@@ -93,7 +93,7 @@ __decorate([
         if (/^\d{4}-\d{2}-\d{2}$/.test(value))
             return value;
         else
-            throw { status: 400, message: `el dato cre no cumple los parametros` };
+            throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Date)
 ], productos.prototype, "created_at", void 0);
@@ -103,7 +103,7 @@ __decorate([
         if (/^\d{4}-\d{2}-\d{2}$/.test(value))
             return value;
         else
-            throw { status: 400, message: `el dato up no cumple los parametros` };
+            throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Date)
 ], productos.prototype, "updated_at", void 0);
@@ -113,7 +113,7 @@ __decorate([
         if (/^\d{4}-\d{2}-\d{2}$/.test(value))
             return value;
         else
-            throw { status: 400, message: `el dato nozz del cumple los parametros` };
+            throw { status: 400, message: `el dato del cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Date)
 ], productos.prototype, "deleted_at", void 0);
