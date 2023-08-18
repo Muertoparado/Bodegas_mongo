@@ -58,6 +58,7 @@ db.createCollection("users", {
       },
     },
   });
+db.users.createIndex({nombre: 1}, {unique: true})
 
 use('bodegas');
 db.createCollection("productos", {

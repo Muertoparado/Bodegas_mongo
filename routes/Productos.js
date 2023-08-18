@@ -8,5 +8,3 @@ const getInitRoute =()=>{
     router.get("/productos", productosPost);
         return router;
 }
-
-export {getInitRoute};
