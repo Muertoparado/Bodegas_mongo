@@ -1,13 +1,13 @@
-import con from "../db/atlas.js";
+import {con} from "../db/atlas.js";
 
-class productos {
+class Productos {
   id;
   nombre;
   descripcion;
   estado;
 
   constructor() {}
-  async con() {
+  async connect() {
     try {
       const result = await con("productos");
       return result;
@@ -17,7 +17,7 @@ class productos {
   }
   async agregarProductos() {
     try {
-      const con = await this.con();
+      const con = await this.connectconnect();
       const resultado = await con.insertOne({
         id: this.id,
         nombre: this.nombre,
@@ -35,4 +35,4 @@ class productos {
   }
 }
 
-export { productos };
+export { Productos };

@@ -8,17 +8,10 @@ import { Router } from "express";
 const appBodegas = Router();  
 
 
-let db = await con();
+/* let db = await con();
 let productos = db.collection("productos")
 
-appBodegas.get("/", limitProduct(), middlewareProduc, async(req, res) => {
-    console.log("a");
-    if(!req.rateLimit) return; 
-    let db = await con();
-    let productos = db.collection("productos");
-    let result = await productos.find({}).toArray();
-    res.send(result);
-});
+
 
 appBodegas.post("/", limitProduct(), middlewareProduc, DTOData, async(req, res) => {
     let resul;
@@ -31,4 +24,4 @@ appBodegas.post("/", limitProduct(), middlewareProduc, DTOData, async(req, res) 
         res.send();
     }
 });
-export default appBodegas;
+export default appBodegas; */
