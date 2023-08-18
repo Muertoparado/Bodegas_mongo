@@ -1,6 +1,6 @@
 import {agregarProductos} from '../services/postServices.js'
 
-const agregarProductos = async (req, res, next) => {
+const agregarProductoscontroller = async (req, res, next) => {
     try {
       const { nombre, descripcion, estado, creador } = req.body;
       const producto = await agregarProductos(
@@ -14,3 +14,5 @@ const agregarProductos = async (req, res, next) => {
       res.status(500).json(error.message);
     }
   };
+
+  export {agregarProductoscontroller};
