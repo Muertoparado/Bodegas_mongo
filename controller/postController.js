@@ -2,8 +2,9 @@ import {agregarProductos} from '../services/postServices.js'
 
 const agregarProductoscontroller = async (req, res, next) => {
     try {
-      const { nombre, descripcion, estado, creador } = req.body;
+      const { id,nombre, descripcion, estado, creador } = req.body;
       const producto = await agregarProductos(
+        id,
         nombre,
         descripcion,
         estado,
@@ -14,5 +15,3 @@ const agregarProductoscontroller = async (req, res, next) => {
       res.status(500).json(error.message);
     }
   };
-
-  export {agregarProductoscontroller};

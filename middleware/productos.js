@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { plainToClass, classToPlain } from 'class-transformer';
 import { validate } from 'class-validator';
-import { DTO } from "../limit/tokenProd.js";
+import { DTO } from "../limit/token.js";
 import { Router } from "express";
 import express from 'express'
 import { productos } from '../routers/storage/productos.js';
@@ -33,7 +33,8 @@ appValidateData.use(async (req, res, next) => {
 });
 middlewareProduc.use((req, res, next) => {
   if (!req.rateLimit) return;
-  let { payload } = req.data;
+ // let { payload } = req.data;
+ let { payload } = req.body;
   const { iat, exp, ...newPayload } = payload;
   payload = newPayload;
   const convertDateProperties = payload => ({
@@ -45,7 +46,7 @@ middlewareProduc.use((req, res, next) => {
   const payloadDateObjects = convertDateProperties(payload);
   const Clone = convertDateProperties(payload);
   const Verify = JSON.stringify(Clone).replace(/\s+/g, '') === JSON.stringify(payloadDateObjects).replace(/\s+/g, '');
-  req.data = undefined;
+ // req.data = undefined;
   !Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next();
 });
 

@@ -122,3 +122,51 @@ db.productos.insertOne([
       deleted_at: "2022-05-01",
     }
 ]);
+
+use('bodegas');
+db.createCollection("inventarios", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["_id", "id_bodega", "id_producto", "cantidad"],
+      properties: {
+        id: {
+          bsonType: "int",
+          description: "ID del inventario",
+        },
+        id_bodega: {
+          bsonType: "int",
+          description: "ID de la bodega asociada al inventario",
+        },
+        id_producto: {
+          bsonType: "int",
+          description: "ID del producto asociado al inventario",
+        },
+        cantidad: {
+          bsonType: "int",
+          description: "Cantidad en inventario",
+        },
+        created_by: {
+          bsonType: ["int", "null"],
+          description: "ID del creador del inventario",
+        },
+        update_by: {
+          bsonType: ["int", "null"],
+          description: "ID del usuario que realizó la actualización",
+        },
+        created_at: {
+          bsonType: ["date", "null"],
+          description: "Fecha de creación del inventario",
+        },
+        updated_at: {
+          bsonType: ["date", "null"],
+          description: "Fecha de actualización del inventario",
+        },
+        deleted_at: {
+          bsonType: ["date", "null"],
+          description: "Fecha de eliminación del inventario",
+        },
+      },
+    },
+  },
+});

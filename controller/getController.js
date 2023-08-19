@@ -1,4 +1,3 @@
-
 import {getProductosAll} from '../services/getServices.js';
 
 const productosGet = async (req,res,next)=>{

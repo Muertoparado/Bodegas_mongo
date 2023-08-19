@@ -1,6 +1,6 @@
 import rateLimit from "express-rate-limit";
 
-export let limitProduct = ()=>{
+export let limitQuery = ()=>{
     return rateLimit({
         windowMs: 10 * 1000,
         max: 5,

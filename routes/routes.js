@@ -1,12 +1,12 @@
-import { Router } from "express";
-//import { postInitRoute } from "./Productos.js";
-import { getInitRoute } from "./Productos.js";
+import express from "express";
+import { limitQuery } from "../limit/config.js";
+import { postProduct} from "../routes/Productos.js";
+import { appValidateData, middlewareProduc, DTOData } from "../middleware/productos.js";
 
-const initRoutes = () => {
-  const router = Router();
-  //router.use("/post", postInitRoute());
-  router.use("/get", getInitRoute());
-  return router;
-};
+const appProductos = express();
+appProductos.use(express.json());
 
-export { initRoutes };
+
+appProductos.post("/produ",  limitQuery(), appValidateData, middlewareProduc, DTOData, postProduct)
+
+export default appProductos;

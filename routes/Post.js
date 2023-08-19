@@ -12,7 +12,6 @@ const appBodegas = Router();
 let productos = db.collection("productos")
 
 
-
 appBodegas.post("/", limitProduct(), middlewareProduc, DTOData, async(req, res) => {
     let resul;
     try {

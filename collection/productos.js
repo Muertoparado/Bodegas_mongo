@@ -9,7 +9,8 @@ class Productos {
   constructor() {}
   async connect() {
     try {
-      const result = await con("productos");
+      const db = await con();
+      const result = db.collection("producto")
       return result;
     } catch (error) {
       throw error;
