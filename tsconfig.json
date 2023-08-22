@@ -10,7 +10,7 @@
     },
 
     "include": [
-        "./routers/storage/*.ts"
+        "./routers/*.ts"
     ],
     
     "exclude": [

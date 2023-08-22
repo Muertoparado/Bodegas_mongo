@@ -8,7 +8,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Expose, Transform } from 'class-transformer';
-export class productos {
+export class users {
+    constructor(data) {
+        Object.assign(this, data);
+        this.id = 0;
+        this.nombre;
+        this.email;
+        this.estado;
+    }
 }
 __decorate([
     Expose({ name: 'id' }),
@@ -19,7 +26,7 @@ __decorate([
             throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Number)
-], productos.prototype, "id", void 0);
+], users.prototype, "id", void 0);
 __decorate([
     Expose({ name: 'nombre' }),
     Transform(({ value }) => {
@@ -29,9 +36,19 @@ __decorate([
             throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", String)
-], productos.prototype, "nombre", void 0);
+], users.prototype, "nombre", void 0);
 __decorate([
-    Expose({ name: 'id_responsable' }),
+    Expose({ name: 'email' }),
+    Transform(({ value }) => {
+        if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value))
+            return value;
+        else
+            throw { status: 400, message: `el dato no cumple los parametros` };
+    }, { toClassOnly: true }),
+    __metadata("design:type", String)
+], users.prototype, "email", void 0);
+__decorate([
+    Expose({ name: 'estado' }),
     Transform(({ value }) => {
         if (Math.floor(value) && typeof value === 'number')
             return Math.floor(value);
@@ -39,4 +56,4 @@ __decorate([
             throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Number)
-], productos.prototype, "id_responsable", void 0);
+], users.prototype, "estado", void 0);
