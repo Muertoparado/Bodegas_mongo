@@ -30,10 +30,10 @@ __decorate([
 __decorate([
     Expose({ name: 'nombre' }),
     Transform(({ value }) => {
-        if (/^[a-z A-Z].$/.test(value))
+        if (/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(value))
             return value;
         else
-            throw { status: 400, message: `el dato no cumple los parametros` };
+            throw { status: 400, message: `el dato no nn cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", String)
 ], users.prototype, "nombre", void 0);

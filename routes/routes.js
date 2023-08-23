@@ -12,7 +12,7 @@ appProductos.use(express.json());
 
 
 appProductos.post("/produ",  limitQuery(), appValidateData, middlewareProduc, DTOData, postProduct)
-appUsers.get("/userg", limitQuery(),middlewareUsers,getUsers );
+appUsers.get("/userg", limitQuery(),middlewareUsers,getUsers);
 appUsers.post("/useradd",limitQuery(),appValidateUsers,middlewareUsers,DTOUsers,postUsers);
 
 

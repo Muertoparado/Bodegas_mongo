@@ -10,8 +10,8 @@ export class users {
         id:number;
 
     @Expose({name:'nombre'})
-    @Transform(({value})=>{if(/^[a-z A-Z].$/.test(value)) return value;
-        else throw {status:400, message:`el dato no cumple los parametros`};},{toClassOnly:true})
+    @Transform(({value})=>{if(/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(value)) return value;
+        else throw {status:400, message:`el dato no nn cumple los parametros`};},{toClassOnly:true})
         nombre:string;
 
     @Expose({name:'email'})

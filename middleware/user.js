@@ -32,7 +32,16 @@ appValidateUsers.use(async (req, res, next) => {
   }
 });
 middlewareUsers.use((req, res, next) => {
-  if (!req.rateLimit) return;
+  if(!req.rateLimit || !req.data) return; 
+    let {payload} = req.data;
+    const { iat, exp, ...newPayload } = payload;
+    payload = newPayload;
+    let Clone = JSON.stringify(classToPlain(plainToClass(DTO("users").class, {}, { ignoreDecorators: true })));
+    let Verify = Clone === JSON.stringify(payload);
+    req.data = undefined;
+   
+  !Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next();
+  /* if (!req.rateLimit) return;
 let { payload } = req.data;
 // let { payload } = req.body;
   const { iat, exp, ...newPayload } = payload;
@@ -43,11 +52,11 @@ let { payload } = req.data;
   const payloadDateObjects = convertDateProperties(payload); 
   const Clone = convertDateProperties(payload);
   const Verify = JSON.stringify(Clone).replace(/\s+/g, '') === JSON.stringify(payloadDateObjects).replace(/\s+/g, '');
- // req.data = undefined; */
+ // req.data = undefined; 
   let Clone= JSON.stringify(classToPlain(plainToClass(users,{},{ignoreDecorators:true})));
-  let Verify= Clone===JSON.stringify(payloadayload);
-  !Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next();
-  
+  let Verify= Clone===JSON.stringify(payloadayload);*/
+  //!Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next();
+   
 });
 
 DTOUsers.use( async(req,res,next) => {
