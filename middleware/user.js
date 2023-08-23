@@ -22,7 +22,9 @@ const DTOUsers = Router();
 const appValidateUsers = express();
 
 appValidateUsers.use(async (req, res, next) => {
+  
   try {
+    console.log("validate");
     const data = plainToClass(users, req.body, { excludeExtraneousValues: true });
     const validateData = await validate(data);
     const validation = validateData.length > 0 ? validateData.flatMap(err => Object.values(err.constraints)): (req.body = JSON.parse(JSON.stringify(data)), []);
@@ -32,14 +34,14 @@ appValidateUsers.use(async (req, res, next) => {
   }
 });
 middlewareUsers.use((req, res, next) => {
-  if(!req.rateLimit || !req.data) return; 
+  console.log("middleware");
+  if(!req.rateLimit) return; 
     let {payload} = req.data;
     const { iat, exp, ...newPayload } = payload;
     payload = newPayload;
     let Clone = JSON.stringify(classToPlain(plainToClass(DTO("users").class, {}, { ignoreDecorators: true })));
     let Verify = Clone === JSON.stringify(payload);
     req.data = undefined;
-   
   !Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next();
   /* if (!req.rateLimit) return;
 let { payload } = req.data;

@@ -1,7 +1,7 @@
 import {con} from "../db/atlas.js";
 import { ObjectId } from "mongodb";
 
-export async function getUsers(req, res) {
+/* export async function getUsers(req, res) {
     try {
         let db = await con();
         console.log(db);
@@ -12,7 +12,31 @@ export async function getUsers(req, res) {
         res.status(404).send({ status:404, message: "Query Not Found :(" })
     }
 };
+ */
 
+export async function getUsers(req, res) {
+    let success = false;
+    try {
+        let db = await con();
+        console.log(db);
+        let colleccion = db.collection("users");
+        let results = await colleccion.find({}).sort({ nombre: 1 }).toArray();
+        if (results.length > 0) {
+            success = true;
+            res.send(results).status(200);
+        } else {
+            res.status(404).send({ status: 404, message: "Found But Without Contain :(" });
+        }
+    } catch (error) {
+        res.status(404).send({ status: 404, message: "Query Not Found :(" });
+    } finally {
+        if (success) {
+            console.log('Request successful');
+        } else {
+            console.log('Request failed');
+        }
+    }
+};
 export async function postUsers(req, res){
    /*  if(!req.rateLimit) return;
 

@@ -8,6 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Expose, Transform } from 'class-transformer';
+import { IsDefined } from 'class-validator';
 export class users {
     constructor(data) {
         Object.assign(this, data);
@@ -15,10 +16,12 @@ export class users {
         this.nombre;
         this.email;
         this.estado;
+        this.password;
     }
 }
 __decorate([
     Expose({ name: 'id' }),
+    IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio ` }; } }),
     Transform(({ value }) => {
         if (Math.floor(value) && typeof value === 'number')
             return Math.floor(value);
@@ -29,6 +32,7 @@ __decorate([
 ], users.prototype, "id", void 0);
 __decorate([
     Expose({ name: 'nombre' }),
+    IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio ` }; } }),
     Transform(({ value }) => {
         if (/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(value))
             return value;
@@ -49,6 +53,7 @@ __decorate([
 ], users.prototype, "email", void 0);
 __decorate([
     Expose({ name: 'estado' }),
+    IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio ` }; } }),
     Transform(({ value }) => {
         if (Math.floor(value) && typeof value === 'number')
             return Math.floor(value);
@@ -57,3 +62,14 @@ __decorate([
     }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], users.prototype, "estado", void 0);
+__decorate([
+    Expose({ name: 'password' }),
+    IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio ` }; } }),
+    Transform(({ value }) => {
+        if (/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(value))
+            return value;
+        else
+            throw { status: 400, message: `el dato no nn cumple los parametros` };
+    }, { toClassOnly: true }),
+    __metadata("design:type", String)
+], users.prototype, "password", void 0);
