@@ -3,6 +3,7 @@ import {MongoClient} from 'mongodb';
 dotenv.config(); 
 export async function con() {
   try {
+    
     const uri = `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASSWORD}@${process.env.ATLAS_DB}.tuhkln0.mongodb.net/`;
     const options = {
       useNewUrlParser: true,
@@ -13,6 +14,16 @@ export async function con() {
     return client.db();
   } catch (error) {
     return {status: 500, message: error};
+  }
+}
+
+export async function connection(col) {
+  try {
+    const db = await con();
+    const collection = db.collection(col); // Cambia "res" por "collection"
+    return collection;
+  } catch (error) {
+    return { status: 500, message: error };
   }
 }
 
@@ -41,7 +52,7 @@ async function con() {
   }
 }
  */
-export default { con };
+
 /* 
 export default async function connection(col) {
   try {

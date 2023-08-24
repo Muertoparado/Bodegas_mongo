@@ -1,4 +1,4 @@
-import {con} from "../db/atlas.js";
+import { connection} from "../db/atlas.js";
 import { ObjectId } from "mongodb";
 
 /* export async function getUsers(req, res) {
@@ -13,13 +13,32 @@ import { ObjectId } from "mongodb";
         res.status(500).send({ status: 500, message: "Internal Server Error :(" });
     }
 };
- */export async function getUsers(req, res) {
+ */
+export async function getUsers(req, res) {
     try {
+        // Obtén la colección "users"
+        const usersCollection = await connection('users');
+    
+        // Realiza la consulta en la colección
+        const results = await usersCollection.find({}).sort({ nombre: 1 }).toArray();
+        console.log(results);
+    
+        if (results.length > 0) {
+        res.status(200).send(results);
+        } else {
+        res.status(404).send({ status: 404, message: "No users found" });
+        }
+    } catch (error) {
+        console.error("Error querying users:", error);
+        res.status(500).send({ status: 500, message: "Internal server error" });
+    }
+    }
+/*     try {
         const db = await con();
         console.log("get function");
         const collection = db.collection("users");
         const results = await collection.find({}).sort({ nombre: 1 }).toArray();
-        
+        console.log(results);
         if (results.length > 0) {
             res.status(200).send(results);
         } else {
@@ -30,7 +49,7 @@ import { ObjectId } from "mongodb";
         res.status(500).send({ status: 500, message: "Internal server error" });
     }
 };
-
+ */
 
 /* export async function getUsers(req, res) {
     let success = false;
@@ -85,6 +104,9 @@ try{
     const newUser = {
         _id: new ObjectId(),
         ...data,
+        email_verified_at: new Date(req.body.email_verified_at),
+        created_at: new Date(req.body.created_at),
+        updated_at: new Date(req.body.updated_at)
     };
     await colleccion.insertOne(newUser);
     res.status(201).send({ status:201, message: "Created :)" });
