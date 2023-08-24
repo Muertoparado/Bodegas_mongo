@@ -1,5 +1,6 @@
 use("bodegas");
 const currentDate = new Date();
+use("bodegas");
 db.createCollection("users", {
     validator: {
       $jsonSchema: {
@@ -49,10 +50,6 @@ db.createCollection("users", {
           updated_at: {
             bsonType: ["date", "null"], // Cambio "null" en vez de null
             description: "Fecha de actualización del usuario",
-          },
-          deleted_at: {
-            bsonType: ["date", "null"], // Cambio "null" en vez de null
-            description: "Fecha de eliminación del usuario",
           },
         },
       },

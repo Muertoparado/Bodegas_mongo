@@ -33,7 +33,49 @@ appValidateUsers.use(async (req, res, next) => {
     res.status(500).json({ status: 500, message: "Internal server error", error: error.message});
   }
 });
+
 middlewareUsers.use((req, res, next) => {
+/*   console.log("middleware");
+  if (!req.rateLimit) return;
+
+  if (req.data && req.data.payload) {
+    console.log(req.data);
+    let { payload } = req.data;
+    const { iat, exp, ...newPayload } = payload;
+    payload = newPayload;
+    let Clone = JSON.stringify(classToPlain(plainToClass(DTO("users").class, {}, { ignoreDecorators: true })));
+    let Verify = Clone === JSON.stringify(payload);
+    req.data = undefined;
+    !Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }) : next();
+  } else {
+    res.status(400).send({ status: 400, message: "Invalid request data" });
+  }
+}); */
+console.log("middlewareUsers");
+  
+// Check if req.rateLimit exists and contains data
+if (!req.rateLimit) {
+  console.log("No rateLimit data found");
+  return;
+}
+
+// Log the contents of req.data
+console.log("req.data:", req.data);
+
+// Check if req.data and payload are present
+if (req.data && req.data.payload) {
+  console.log("Payload found:", req.data.payload);
+
+  // Other rate limiting and payload validation logic here
+
+  console.log("Validation successful");
+  next();
+} else {
+  console.log("Invalid request data:", req.data);
+  res.status(400).send({ status: 400, message: "Invalid request data" });
+}
+});
+/* middlewareUsers.use((req, res, next) => {
   console.log("middleware");
   if(!req.rateLimit) return; 
     let {payload} = req.data;
@@ -42,7 +84,7 @@ middlewareUsers.use((req, res, next) => {
     let Clone = JSON.stringify(classToPlain(plainToClass(DTO("users").class, {}, { ignoreDecorators: true })));
     let Verify = Clone === JSON.stringify(payload);
     req.data = undefined;
-  !Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next();
+  !Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next(); */
   /* if (!req.rateLimit) return;
 let { payload } = req.data;
 // let { payload } = req.body;
@@ -56,12 +98,12 @@ let { payload } = req.data;
   const Verify = JSON.stringify(Clone).replace(/\s+/g, '') === JSON.stringify(payloadDateObjects).replace(/\s+/g, '');
  // req.data = undefined; 
   let Clone= JSON.stringify(classToPlain(plainToClass(users,{},{ignoreDecorators:true})));
-  let Verify= Clone===JSON.stringify(payloadayload);*/
-  //!Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next();
+  let Verify= Clone===JSON.stringify(payloadayload); */
+  //!Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next(); });
    
-});
 
-DTOUsers.use( async(req,res,next) => {
+
+/* DTOUsers.use( async(req,res,next) => {
     try {
         let data = plainToClass(DTO("users").class, req.body);
         await validate(data);
@@ -71,6 +113,19 @@ DTOUsers.use( async(req,res,next) => {
     } catch (err) {
         res.status(err.status).send(err)
     }
+}); */
+
+DTOUsers.use(async(req, res, next) => {
+  try {
+    // Assuming you're validating URL parameters, replace "req.body" with "req.params"
+    let data = plainToClass(DTO("users").class, req.params);
+    await validate(data);
+    req.params = JSON.parse(JSON.stringify(data)); // Update the validated parameters
+    req.data = undefined;
+    next();
+  } catch (err) {
+    res.status(err.status).send(err);
+  }
 });
 
 export {

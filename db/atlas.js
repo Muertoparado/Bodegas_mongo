@@ -1,4 +1,4 @@
-/* import dotenv from 'dotenv'
+import dotenv from 'dotenv'
 import {MongoClient} from 'mongodb';
 dotenv.config(); 
 export async function con() {
@@ -9,13 +9,14 @@ export async function con() {
       useUnifiedTopology: true,
     };
     const client = await MongoClient.connect(uri, options);
+    console.log(client);
     return client.db();
   } catch (error) {
     return {status: 500, message: error};
   }
-} */
+}
 
-import dotenv from 'dotenv';
+/* import dotenv from 'dotenv';
 import { MongoClient } from 'mongodb';
 
 dotenv.config();
@@ -39,8 +40,8 @@ async function con() {
     console.error(error);
   }
 }
-
-export { con };
+ */
+export default { con };
 /* 
 export default async function connection(col) {
   try {

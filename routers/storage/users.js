@@ -15,8 +15,14 @@ export class users {
         this.id = 0;
         this.nombre;
         this.email;
+        this.email_verified_at = new Date();
         this.estado;
+        this.created_by;
+        this.update_by;
+        this.foto;
         this.password;
+        this.created_at;
+        this.updated_at;
     }
 }
 __decorate([
@@ -26,7 +32,7 @@ __decorate([
         if (Math.floor(value) && typeof value === 'number')
             return Math.floor(value);
         else
-            throw { status: 400, message: `el dato no cumple los parametros` };
+            throw { status: 400, message: `el dato no id cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Number)
 ], users.prototype, "id", void 0);
@@ -52,6 +58,16 @@ __decorate([
     __metadata("design:type", String)
 ], users.prototype, "email", void 0);
 __decorate([
+    Expose({ name: 'email_verified_at' }),
+    Transform(({ value }) => {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(value))
+            return new Date(value);
+        else
+            throw { status: 400, message: `el dato no aa cumple los parametros` };
+    }, { toClassOnly: true }),
+    __metadata("design:type", Date)
+], users.prototype, "email_verified_at", void 0);
+__decorate([
     Expose({ name: 'estado' }),
     IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio ` }; } }),
     Transform(({ value }) => {
@@ -63,13 +79,63 @@ __decorate([
     __metadata("design:type", Number)
 ], users.prototype, "estado", void 0);
 __decorate([
+    Expose({ name: 'created_by' }),
+    Transform(({ value }) => {
+        if (Math.floor(value) && typeof value === 'number')
+            return Math.floor(value);
+        else
+            throw { status: 400, message: `el dato no qw cumple los parametros` };
+    }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], users.prototype, "created_by", void 0);
+__decorate([
+    Expose({ name: 'update_by' }),
+    Transform(({ value }) => {
+        if (Math.floor(value) && typeof value === 'number')
+            return Math.floor(value);
+        else
+            throw { status: 400, message: `el dato no cumple cc los parametros` };
+    }, { toClassOnly: true }),
+    __metadata("design:type", Number)
+], users.prototype, "update_by", void 0);
+__decorate([
+    Expose({ name: 'foto' }),
+    Transform(({ value }) => {
+        if (/(http[s]?:\/\/)?([^\s(["<,>]*\.[^\s[",><]*)([^,>\s]*)/.test(value))
+            return value;
+        else
+            throw { status: 400, message: `el dato no nf cumple los parametros` };
+    }, { toClassOnly: true }),
+    __metadata("design:type", String)
+], users.prototype, "foto", void 0);
+__decorate([
     Expose({ name: 'password' }),
     IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio ` }; } }),
     Transform(({ value }) => {
-        if (/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(value))
+        if (/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü0-9\s]+$/.test(value))
             return value;
         else
-            throw { status: 400, message: `el dato no nn cumple los parametros` };
+            throw { status: 400, message: `el dato no pass cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", String)
 ], users.prototype, "password", void 0);
+__decorate([
+    Expose({ name: 'created_at' }),
+    Transform(({ value }) => {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(value))
+            return new Date(value);
+        else
+            throw { status: 400, message: `el dato no aa cumple los parametros` };
+    }, { toClassOnly: true }),
+    __metadata("design:type", Date)
+], users.prototype, "created_at", void 0);
+__decorate([
+    Expose({ name: 'updated_at' }),
+    Transform(({ value }) => {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(value))
+            return new Date(value);
+        else
+            throw { status: 400, message: `el dato no aa cumple los parametros` };
+    }, { toClassOnly: true }),
+    __metadata("design:type", Date)
+], users.prototype, "updated_at", void 0);

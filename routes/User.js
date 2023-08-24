@@ -4,17 +4,35 @@ import { ObjectId } from "mongodb";
 /* export async function getUsers(req, res) {
     try {
         let db = await con();
-        console.log(db);
+        console.log("get function");
         let colleccion = db.collection("users");
         let results = await colleccion.find({}).sort({ nombre: 1 }).toArray();
         results.length > 0 ? res.send(results).status(200) : res.status(404).send({ status: 404, message: "Found But Without Contain :(" })
     } catch (error) {
-        res.status(404).send({ status:404, message: "Query Not Found :(" })
+        console.log(error); // Agregar este console.log para imprimir detalles del error
+        res.status(500).send({ status: 500, message: "Internal Server Error :(" });
     }
 };
- */
+ */export async function getUsers(req, res) {
+    try {
+        const db = await con();
+        console.log("get function");
+        const collection = db.collection("users");
+        const results = await collection.find({}).sort({ nombre: 1 }).toArray();
+        
+        if (results.length > 0) {
+            res.status(200).send(results);
+        } else {
+            res.status(404).send({ status: 404, message: "No users found" });
+        }
+    } catch (error) {
+        console.error("Error querying users:", error);
+        res.status(500).send({ status: 500, message: "Internal server error" });
+    }
+};
 
-export async function getUsers(req, res) {
+
+/* export async function getUsers(req, res) {
     let success = false;
     try {
         let db = await con();
@@ -36,7 +54,7 @@ export async function getUsers(req, res) {
             console.log('Request failed');
         }
     }
-};
+}; */
 export async function postUsers(req, res){
    /*  if(!req.rateLimit) return;
 
