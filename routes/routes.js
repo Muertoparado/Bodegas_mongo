@@ -15,5 +15,5 @@ appProductos.post("/produ",  limitQuery(), appValidateData, middlewareProduc, DT
 appUsers.get("/userg", limitQuery(),getUsers);
 appUsers.post("/useradd",limitQuery(),appValidateUsers,middlewareUsers,DTOUsers,postUsers);
 
-
+ 
 export { appProductos,appUsers};

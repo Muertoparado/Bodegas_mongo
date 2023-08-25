@@ -19,10 +19,6 @@ db.createCollection("users", {
             bsonType: "string",
             description: "Correo electrónico del usuario",
           },
-          email_verified_at: {
-            bsonType: ["date", "null"], // Cambio "null" en vez de null
-            description: "Fecha de verificación de correo electrónico",
-          },
           estado: {
             bsonType: "int",
             description: "id del estado del usuario",
@@ -56,7 +52,7 @@ db.createCollection("users", {
     },
   });
 db.users.createIndex({nombre: 1}, {unique: true})
-
+/* {"_id":{"$oid":"64e8afe753f82b4131d054ce"},"id":{"$numberInt":"233"},"nombre":"Juan","email":"juan@example.com","estado":{"$numberInt":"1"},"password":"password123","email_verified_at":null,"created_by":null,"update_by":null,"foto":null,"created_at":null,"updated_at":null} */
 use('bodegas');
 db.createCollection("productos", {
   validator: {

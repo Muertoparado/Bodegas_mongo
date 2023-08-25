@@ -14,7 +14,7 @@ import { ObjectId } from "mongodb";
     }
 };
  */
-export async function getUsers(req, res) {
+/* export async function getUsers(req, res) {
     try {
         // Obtén la colección "users"
         const usersCollection = await connection('users');
@@ -32,7 +32,29 @@ export async function getUsers(req, res) {
         console.error("Error querying users:", error);
         res.status(500).send({ status: 500, message: "Internal server error" });
     }
+    } */
+
+export async function getUsers(req, res) {
+    try {
+      // Obtén la colección "users"
+      const usersCollection = await connection('users');
+  
+      // Realiza la consulta en la colección
+      console.log(usersCollection)
+      const results = await usersCollection.find({}).sort({ nombre: 1 }).toArray();
+      console.log(results);
+  
+      if (results.length > 0) {
+        res.status(200).send(results);
+      } else {
+        res.status(404).send({ status: 404, message: "No users found" });
+      }
+    } catch (error) {
+      console.error("Error querying users:", error);
+      res.status(500).send({ status: 500, message: "Internal server error" });
     }
+  }
+  
 /*     try {
         const db = await con();
         console.log("get function");
@@ -75,10 +97,27 @@ export async function getUsers(req, res) {
     }
 }; */
 export async function postUsers(req, res){
-   /*  if(!req.rateLimit) return;
+    try{
+        let db = await connection('users');
+        let colleccion = db.collection("bodegas");
+        let data = req.body;
+        const newBodega = {
+            _id: new ObjectId(),
+            ...data,
+            created_at: new Date(req.body.created_at),
+            updated_at: new Date(req.body.updated_at)
+        };
+        await colleccion.insertOne(newBodega);
+        res.status(201).send({ status:201, message: "Created :)" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status:500, message: "Internal Server Error :(" });
+    }
+};
+ /*    if(!req.rateLimit) return;
 
    try {
-      const client = await con(); // Obtén la conexión a la base de datos
+      const client = await connection("users"); // Obtén la conexión a la base de datos
      // const db = await client.db(); // Obtiene la instancia de la base de datos
 
     const collection = client.collection("users");
@@ -94,9 +133,9 @@ export async function postUsers(req, res){
     } catch (error) {
         console.log("Error al insertar users:", error);
         return res.status(500).json({ message: 'Error al insertar users' });
-}
-}; */
-
+} 
+};*/
+/* 
 try{
     let db = await con();
     let colleccion = db.collection("users");
@@ -113,5 +152,5 @@ try{
 } catch (error) {
     console.error(error);
     res.status(500).send({ status:500, message: "Internal Server Error :(" });
-}
-};
+} 
+};*/

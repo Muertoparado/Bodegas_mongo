@@ -4,26 +4,26 @@ dotenv.config();
 export async function con() {
   try {
     
-    const uri = `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASSWORD}@${process.env.ATLAS_DB}.tuhkln0.mongodb.net/`;
+    const uri = `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASSWORD}@prueba.tuhkln0.mongodb.net/`;
     const options = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     };
     const client = await MongoClient.connect(uri, options);
     console.log(client);
-    return client.db();
+    return client.db(`${process.env.ATLAS_DB}`);
   } catch (error) {
-    return {status: 500, message: error};
+    return {status: 500, message: error}, Promise.reject(error);;
   }
 }
 
 export async function connection(col) {
   try {
     const db = await con();
-    const collection = db.collection(col); // Cambia "res" por "collection"
+    const collection = db.collection(col);
     return collection;
   } catch (error) {
-    return { status: 500, message: error };
+    return Promise.reject(error); // Lanza el error para manejarlo en otro lugar
   }
 }
 

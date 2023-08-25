@@ -15,14 +15,13 @@ export class users {
         this.id = 0;
         this.nombre;
         this.email;
-        this.email_verified_at = new Date();
         this.estado;
         this.created_by;
         this.update_by;
         this.foto;
         this.password;
-        this.created_at;
-        this.updated_at;
+        this.created_at = new Date();
+        this.updated_at = new Date();
     }
 }
 __decorate([
@@ -57,16 +56,6 @@ __decorate([
     }, { toClassOnly: true }),
     __metadata("design:type", String)
 ], users.prototype, "email", void 0);
-__decorate([
-    Expose({ name: 'email_verified_at' }),
-    Transform(({ value }) => {
-        if (/^\d{4}-\d{2}-\d{2}$/.test(value))
-            return new Date(value);
-        else
-            throw { status: 400, message: `el dato no aa cumple los parametros` };
-    }, { toClassOnly: true }),
-    __metadata("design:type", Date)
-], users.prototype, "email_verified_at", void 0);
 __decorate([
     Expose({ name: 'estado' }),
     IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio ` }; } }),

@@ -34,8 +34,8 @@ appValidateUsers.use(async (req, res, next) => {
   }
 });
 
-middlewareUsers.use((req, res, next) => {
-/*   console.log("middleware");
+/* middlewareUsers.use((req, res, next) => {
+  console.log("middleware");
   if (!req.rateLimit) return;
 
   if (req.data && req.data.payload) {
@@ -51,40 +51,31 @@ middlewareUsers.use((req, res, next) => {
     res.status(400).send({ status: 400, message: "Invalid request data" });
   }
 }); */
-console.log("middlewareUsers");
+
   
-// Check if req.rateLimit exists and contains data
-if (!req.rateLimit) {
-  console.log("No rateLimit data found");
-  return;
+middlewareUsers.use((req, res, next) => {
+    if (!req.rateLimit) return;
+    const { data } = req;
+if (!data || typeof data.payload === 'undefined') {
+  return res.status(400).send({ status: 400, message: "Bad Request" });
 }
-
-// Log the contents of req.data
-console.log("req.data:", req.data);
-
-// Check if req.data and payload are present
-if (req.data && req.data.payload) {
-  console.log("Payload found:", req.data.payload);
-
-  // Other rate limiting and payload validation logic here
-
-  console.log("Validation successful");
-  next();
-} else {
-  console.log("Invalid request data:", req.data);
-  res.status(400).send({ status: 400, message: "Invalid request data" });
-}
-});
-/* middlewareUsers.use((req, res, next) => {
-  console.log("middleware");
-  if(!req.rateLimit) return; 
-    let {payload} = req.data;
+//const { payload } = data;
+    let { payload } = req.data;
     const { iat, exp, ...newPayload } = payload;
     payload = newPayload;
-    let Clone = JSON.stringify(classToPlain(plainToClass(DTO("users").class, {}, { ignoreDecorators: true })));
-    let Verify = Clone === JSON.stringify(payload);
+    const convertDateProperties = payload => ({
+      ...payload,
+      emai_verified_at: new Date(payload.email_verified_at),
+      created_at: new Date(payload.created_at),
+      updated_at: new Date(payload.updated_at)
+    });
+    const payloadDateObjects = convertDateProperties(payload);
+    const Clone = convertDateProperties(payload);
+    const Verify = JSON.stringify(Clone).replace(/\s+/g, '') === JSON.stringify(payloadDateObjects).replace(/\s+/g, '');
     req.data = undefined;
-  !Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next(); */
+    !Verify ? res.status(406).send({ status: 406, message: "Not Acceptable" }): next();
+  });
+
   /* if (!req.rateLimit) return;
 let { payload } = req.data;
 // let { payload } = req.body;
@@ -126,9 +117,9 @@ DTOUsers.use(async(req, res, next) => {
   } catch (err) {
     res.status(err.status).send(err);
   }
-});
+}); 
 
-export {
+export { 
     appValidateUsers,
     middlewareUsers,
     DTOUsers
