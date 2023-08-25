@@ -99,15 +99,15 @@ export async function getUsers(req, res) {
 export async function postUsers(req, res){
     try{
         let db = await connection('users');
-        let colleccion = db.collection("bodegas");
+        let colleccion = db;
         let data = req.body;
-        const newBodega = {
+        const newUser = {
             _id: new ObjectId(),
             ...data,
             created_at: new Date(req.body.created_at),
             updated_at: new Date(req.body.updated_at)
         };
-        await colleccion.insertOne(newBodega);
+        await colleccion.insertOne(newUser);
         res.status(201).send({ status:201, message: "Created :)" });
     } catch (error) {
         console.error(error);
@@ -115,7 +115,7 @@ export async function postUsers(req, res){
     }
 };
  /*    if(!req.rateLimit) return;
-
+ 
    try {
       const client = await connection("users"); // Obtén la conexión a la base de datos
      // const db = await client.db(); // Obtiene la instancia de la base de datos

@@ -28,6 +28,7 @@ appValidateUsers.use(async (req, res, next) => {
     const data = plainToClass(users, req.body, { excludeExtraneousValues: true });
     const validateData = await validate(data);
     const validation = validateData.length > 0 ? validateData.flatMap(err => Object.values(err.constraints)): (req.body = JSON.parse(JSON.stringify(data)), []);
+    console.log(validation);
     validation.length > 0 ? res.status(400).json({ status: 400, message: "Validation error", errors: validation}) : (req.body = JSON.parse(JSON.stringify(data)), next());
   } catch (error) {
     res.status(500).json({ status: 500, message: "Internal server error", error: error.message});
@@ -56,16 +57,15 @@ appValidateUsers.use(async (req, res, next) => {
 middlewareUsers.use((req, res, next) => {
     if (!req.rateLimit) return;
     const { data } = req;
-if (!data || typeof data.payload === 'undefined') {
-  return res.status(400).send({ status: 400, message: "Bad Request" });
+    if (!data || typeof data.payload === 'undefined') {
+      return res.status(400).send({ status: 400, message: "Bad Request" });
 }
 //const { payload } = data;
-    let { payload } = req.data;
+    const { payload } = req.data;
     const { iat, exp, ...newPayload } = payload;
     payload = newPayload;
     const convertDateProperties = payload => ({
       ...payload,
-      emai_verified_at: new Date(payload.email_verified_at),
       created_at: new Date(payload.created_at),
       updated_at: new Date(payload.updated_at)
     });
