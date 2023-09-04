@@ -12,16 +12,14 @@ import { IsDefined } from 'class-validator';
 export class users {
     constructor(data) {
         Object.assign(this, data);
-        this.id = 0;
+        this.id;
         this.nombre;
         this.email;
         this.estado;
-        this.created_by;
-        this.update_by;
+        this.created_by = null;
         this.foto;
         this.password;
         this.created_at = new Date();
-        this.updated_at = new Date();
     }
 }
 __decorate([
@@ -78,16 +76,6 @@ __decorate([
     __metadata("design:type", Number)
 ], users.prototype, "created_by", void 0);
 __decorate([
-    Expose({ name: 'update_by' }),
-    Transform(({ value }) => {
-        if (Math.floor(value) && typeof value === 'number')
-            return Math.floor(value);
-        else
-            throw { status: 400, message: `el dato no cumple cc los parametros` };
-    }, { toClassOnly: true }),
-    __metadata("design:type", Number)
-], users.prototype, "update_by", void 0);
-__decorate([
     Expose({ name: 'foto' }),
     Transform(({ value }) => {
         if (/(http[s]?:\/\/)?([^\s(["<,>]*\.[^\s[",><]*)([^,>\s]*)/.test(value))
@@ -118,13 +106,3 @@ __decorate([
     }, { toClassOnly: true }),
     __metadata("design:type", Date)
 ], users.prototype, "created_at", void 0);
-__decorate([
-    Expose({ name: 'updated_at' }),
-    Transform(({ value }) => {
-        if (/^\d{4}-\d{2}-\d{2}$/.test(value))
-            return new Date(value);
-        else
-            throw { status: 400, message: `el dato no aa cumple los parametros` };
-    }, { toClassOnly: true }),
-    __metadata("design:type", Date)
-], users.prototype, "updated_at", void 0);

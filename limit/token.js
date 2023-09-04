@@ -15,7 +15,6 @@ const DTO = (p1) => {
     const match = {
         'productos': productos,
         'users':users,
-        'mongo': Error
     };
     const inst = match[p1];
     if(!inst) throw {status: 404, message: "Token solicitado no valido"}

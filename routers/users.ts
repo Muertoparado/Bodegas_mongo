@@ -36,13 +36,6 @@ export class users {
         else throw {status:400, message:`el dato no qw cumple los parametros`};},{toClassOnly: true})
         created_by:number;
 
-    @Expose({name:'update_by'})
-    @Transform(({value})=>{
-        if(Math.floor(value)&& typeof value === 'number')
-        return Math.floor(value);
-        else throw {status:400, message:`el dato no cumple cc los parametros`};},{toClassOnly: true})
-        update_by:number;
-
     @Expose({name:'foto'})
     @Transform(({value})=>{if(/(http[s]?:\/\/)?([^\s(["<,>]*\.[^\s[",><]*)([^,>\s]*)/.test(value)) return value;
         else throw {status:400, message:`el dato no nf cumple los parametros`};},{toClassOnly:true})
@@ -64,26 +57,15 @@ export class users {
     },{toClassOnly:true})
     created_at:Date;
 
-    @Expose({name:'updated_at'})
-    @Transform(({value})=>{
-        if(/^\d{4}-\d{2}-\d{2}$/.test(value)) 
-            return new Date(value);
-        else 
-            throw {status:400, message:`el dato no aa cumple los parametros`};
-    },{toClassOnly:true})
-    updated_at:Date;
-
         constructor(data:Partial<users>) {
             Object.assign(this, data);
-            this.id = 0;
+            this.id 
             this.nombre
             this.email
             this.estado
-            this.created_by
-            this.update_by
+            this.created_by=null;
             this.foto
             this.password
             this.created_at=new Date();
-            this.updated_at=new Date();
             }
 }

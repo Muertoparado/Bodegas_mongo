@@ -1,19 +1,22 @@
 import express from "express";
 import { limitQuery } from "../limit/config.js";
-import { postProduct} from "../routes/Productos.js";
-import {getUsers,postUsers} from '../routes/User.js';
-import { appValidateData, middlewareProduc, DTOData } from "../middleware/productos.js";
-import {appValidateUsers,middlewareUsers,DTOUsers} from '../middleware/user.js'
-
-const appProductos = express();
-const appUsers=express();
-appUsers.use(express.json());
-appProductos.use(express.json());
+import { deleteUser, getUserId, getUsers, postUsers } from "../controller/user.js";
 
 
-appProductos.post("/produ",  limitQuery(), appValidateData, middlewareProduc, DTOData, postProduct)
-appUsers.get("/userg", limitQuery(),getUsers);
-appUsers.post("/useradd",limitQuery(),appValidateUsers,middlewareUsers,DTOUsers,postUsers);
+function configurarApp() {
+    const app = express();
+    app.use(express.json());
+    return app;
+}
 
- 
-export { appProductos,appUsers};
+const appUsers = configurarApp();
+//const appInfraestructura = configurarApp();
+
+appUsers.get("/users",limitQuery(),getUsers);
+appUsers.get("/users/:id",limitQuery(),getUserId);
+appUsers.post("/users",limitQuery(),postUsers);
+appUsers.delete("/users/:id",limitQuery(),deleteUser);
+
+export {
+    appUsers
+}

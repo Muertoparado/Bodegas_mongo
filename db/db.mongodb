@@ -24,15 +24,11 @@ db.createCollection("users", {
             description: "id del estado del usuario",
           },
           created_by: {
-            bsonType: ["int", "null"], // Cambio "null" en vez de null
+            bsonType: "int", // Cambio "null" en vez de null
             description: "ID del creador del usuario",
           },
-          update_by: {
-            bsonType: ["int", "null"], // Cambio "null" en vez de null
-            description: "ID del usuario que realizó la actualización",
-          },
           foto: {
-            bsonType: ["string", "null"], // Cambio "null" en vez de null
+            bsonType: "string", // Cambio "null" en vez de null
             description: "URL de la foto del usuario",
           },
           password: {
@@ -40,13 +36,9 @@ db.createCollection("users", {
             description: "Contraseña del usuario",
           },
           created_at: {
-            bsonType: ["date", "null"], // Cambio "null" en vez de null
+            bsonType: "date", // Cambio "null" en vez de null
             description: "Fecha de creación del usuario",
-          },
-          updated_at: {
-            bsonType: ["date", "null"], // Cambio "null" en vez de null
-            description: "Fecha de actualización del usuario",
-          },
+          }
         },
       },
     },
