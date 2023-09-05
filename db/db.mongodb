@@ -155,3 +155,39 @@ db.createCollection("inventarios", {
     },
   },
 });
+
+use('bodegas');
+db.createCollection("bodegas", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["id", "nombre", "id_responsable", "estado", "created_by","created_at"],
+      properties: {
+        id: {
+          bsonType: "int",
+          description: "ID de la bodega",
+        },
+        nombre: {
+          bsonType: "string",
+          description: "Nombre bodega",
+        },
+        id_responsable: {
+          bsonType: "string",
+          description: "id responsable de la bodega",
+        },
+        estado: {
+          bsonType: "string",
+          description: "id del estado de la bodega",
+        },
+        created_by: {
+          bsonType: "int", // Cambio "null" en vez de null
+          description: "ID del creador de la bodega",
+        },
+        created_at: {
+          bsonType: "date", // Cambio "null" en vez de null
+          description: "Fecha de creación del usuario",
+        }
+      },
+    },
+  },
+});

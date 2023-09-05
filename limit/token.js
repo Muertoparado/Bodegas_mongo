@@ -5,7 +5,7 @@ import { Router } from 'express';
 import { SignJWT, jwtVerify } from 'jose';
 import { productos } from "../routers/storage/productos.js";
 import { users } from '../routers/storage/users.js';
-import { Error } from "../routers/storage/mongo.js";
+import {bodegas} from '../routers/storage/bodegas.js';
 
 dotenv.config("../");
 const appToken = Router();
@@ -13,6 +13,7 @@ const appVerify = Router();
 
 const DTO = (p1) => {
     const match = {
+        'bodegas':bodegas,
         'productos': productos,
         'users':users,
     };

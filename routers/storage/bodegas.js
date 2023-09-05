@@ -13,10 +13,10 @@ export class bodegas {
         Object.assign(this, data);
         this.id;
         this.nombre;
-        this.id_responsable = 0;
+        this.id_responsable;
         this.estado;
         this.created_by;
-        this.update_by;
+        this.created_at;
     }
 }
 __decorate([
@@ -52,12 +52,12 @@ __decorate([
 __decorate([
     Expose({ name: 'estado' }),
     Transform(({ value }) => {
-        if (Math.floor(value) && typeof value === 'number')
-            return Math.floor(value);
+        if (/^[a-z A-Z].$/.test(value))
+            return value;
         else
             throw { status: 400, message: `el dato no cumple los parametros` };
     }, { toClassOnly: true }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], bodegas.prototype, "estado", void 0);
 __decorate([
     Expose({ name: 'created_by' }),
@@ -70,12 +70,12 @@ __decorate([
     __metadata("design:type", Number)
 ], bodegas.prototype, "created_by", void 0);
 __decorate([
-    Expose({ name: 'update_by' }),
+    Expose({ name: 'created_at' }),
     Transform(({ value }) => {
-        if (Math.floor(value) && typeof value === 'number')
-            return Math.floor(value);
+        if (/^\d{4}-\d{2}-\d{2}$/.test(value))
+            return new Date(value);
         else
-            throw { status: 400, message: `el dato no cumple los parametros` };
+            throw { status: 400, message: `el dato no aa cumple los parametros` };
     }, { toClassOnly: true }),
-    __metadata("design:type", Number)
-], bodegas.prototype, "update_by", void 0);
+    __metadata("design:type", Date)
+], bodegas.prototype, "created_at", void 0);
