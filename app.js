@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import { appBodegas, appProductos, appUsers} from './routes/routes.js';
+import { appBodegas, appHistoriales, appProductos, appUsers} from './routes/routes.js';
 import { appToken, appVerify} from './limit/token.js';
 //import { initRoutes} from './routes/routes.js'
 dotenv.config();
@@ -12,7 +12,7 @@ app.use("/token", appToken);
 app.use("/users",appVerify,appUsers);
 app.use("/bodegas",appVerify,appBodegas);
 app.use("/productos",appVerify,appProductos);
-
+app.use("/historiales",appVerify,appHistoriales);
 
 let config = JSON.parse(process.env.MY_SERVER);
 

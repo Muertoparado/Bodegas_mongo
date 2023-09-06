@@ -6,6 +6,7 @@ import { SignJWT, jwtVerify } from 'jose';
 import { productos } from "../routers/storage/productos.js";
 import { users } from '../routers/storage/users.js';
 import {bodegas} from '../routers/storage/bodegas.js';
+import {historiales} from '../routers/storage/historiales.js';
 
 dotenv.config("../");
 const appToken = Router();
@@ -16,6 +17,7 @@ const DTO = (p1) => {
         'bodegas':bodegas,
         'productos': productos,
         'users':users,
+        'historiales':historiales
     };
     const inst = match[p1];
     if(!inst) throw {status: 404, message: "Token solicitado no valido"}
