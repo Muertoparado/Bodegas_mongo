@@ -35,7 +35,7 @@ __decorate([
     Expose({ name: 'nombre' }),
     IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio ` }; } }),
     Transform(({ value }) => {
-        if (/^[a-zA-Z\s]+$/.test(value))
+        if (/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(value))
             return value;
         else
             throw { status: 400, message: `el dato no cumple los parametros` };
@@ -46,7 +46,7 @@ __decorate([
     Expose({ name: 'descripcion' }),
     IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio ` }; } }),
     Transform(({ value }) => {
-        if (/^[a-zA-Z\s]+$/.test(value))
+        if (/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(value))
             return value;
         else
             throw { status: 400, message: `el dato no cumple los parametros` };
@@ -68,7 +68,7 @@ __decorate([
     Expose({ name: 'created_by' }),
     IsDefined({ message: () => { throw { status: 401, message: `el mensaje es obligatorio ` }; } }),
     Transform(({ value }) => {
-        if (/^[a-zA-Z\s]+$/.test(value))
+        if (/^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]+$/.test(value))
             return value;
         else
             throw { status: 400, message: `el dato no cumple los parametros` };
@@ -79,9 +79,9 @@ __decorate([
     Expose({ name: 'created_at' }),
     Transform(({ value }) => {
         if (/^\d{4}-\d{2}-\d{2}$/.test(value))
-            return value;
+            return new Date(value);
         else
-            throw { status: 400, message: `el dato no cumple los parametros` };
+            throw { status: 400, message: `el dato no aa cumple los parametros` };
     }, { toClassOnly: true }),
     __metadata("design:type", Date)
 ], productos.prototype, "created_at", void 0);

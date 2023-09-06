@@ -3,6 +3,7 @@ import { limitQuery } from "../limit/config.js";
 import { deleteUser, getUserId, getUsers, postUsers } from "../controller/user.js";
 import { deleteBodega, getBodegas, getBodegasId, postBodegas } from "../controller/bodegas.js";
 import { deleteProducto, getProductos, getProductosId, postProductos } from "../controller/productos.js";
+import { deleteHistoriales, getHistoriales, getHistorialesId, postHistoriales } from "../controller/historiales.js";
 
 
 function configurarApp() {
@@ -14,6 +15,7 @@ function configurarApp() {
 const appUsers = configurarApp();
 const appBodegas= configurarApp();
 const appProductos = configurarApp();
+const appHistoriales= configurarApp();
 
 appUsers.get("/users",limitQuery(),getUsers);
 appUsers.get("/users/:id",limitQuery(),getUserId);
@@ -30,9 +32,14 @@ appProductos.get("/productos/:id", limitQuery(),getProductosId);
 appProductos.post("/productos",limitQuery(),postProductos);
 appProductos.delete("/productos/:id",limitQuery(),deleteProducto);
 
+appHistoriales.get("/historiales",limitQuery(),getHistoriales),
+appHistoriales.get("/historiales/:id",limitQuery(),getHistorialesId);
+appHistoriales.post("/histporiales",limitQuery(),postHistoriales),
+appHistoriales.delete("/historiales/:id",limitQuery(),deleteHistoriales);
 
 export {
     appUsers,
     appBodegas,
-    appProductos
+    appProductos,
+    appHistoriales
 }

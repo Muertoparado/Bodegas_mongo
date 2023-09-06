@@ -160,7 +160,7 @@ db.createCollection("bodegas", {
           description: "Nombre bodega",
         },
         id_responsable: {
-          bsonType: "string",
+          bsonType: "int",
           description: "id responsable de la bodega",
         },
         estado: {
