@@ -2,6 +2,7 @@ import express from "express";
 import { limitQuery } from "../limit/config.js";
 import { deleteUser, getUserId, getUsers, postUsers } from "../controller/user.js";
 import { deleteBodega, getBodegas, getBodegasId, postBodegas } from "../controller/bodegas.js";
+import { deleteProducto, getProductos, getProductosId, postProductos } from "../controller/productos.js";
 
 
 function configurarApp() {
@@ -12,7 +13,7 @@ function configurarApp() {
 
 const appUsers = configurarApp();
 const appBodegas= configurarApp();
-//const appInfraestructura = configurarApp();
+const appProductos = configurarApp();
 
 appUsers.get("/users",limitQuery(),getUsers);
 appUsers.get("/users/:id",limitQuery(),getUserId);
@@ -24,7 +25,14 @@ appBodegas.get("/bodegas/:id",limitQuery(),getBodegasId);
 appBodegas.post("/bodegas",limitQuery(),postBodegas);
 appBodegas.delete("/bodegas/:id",limitQuery(),deleteBodega);
 
+appProductos.get("/productos",limitQuery(),getProductos);
+appProductos.get("/productos/:id", limitQuery(),getProductosId);
+appProductos.post("/productos",limitQuery(),postProductos);
+appProductos.delete("/productos/:id",limitQuery(),deleteProducto);
+
+
 export {
     appUsers,
-    appBodegas
+    appBodegas,
+    appProductos
 }
