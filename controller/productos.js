@@ -48,6 +48,25 @@ export async function postProductos(req, res){
     }
 };
 
+export async function putProducto(req, res){
+    try{
+        let db = await con();
+        let colleccion = db.collection("productos");
+        const productoId = parseInt(req.params.id);
+        const producto = await colleccion.findOne({ id: productoId });
+        const updateData = req.body;
+        if (!producto) {
+            return res.status(404).send({ status: 404, message: "producto no encontrado" });
+        }
+        await colleccion.updateOne({ id: productoId }, { $set: updateData });
+ //       console.log(deletionResult);
+        res.status(200).send({ status:200, message: "Deleted" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status:500, message: "Internal Server Error" });
+    }
+};
+
 export async function deleteProducto(req, res){
     try{
         let db = await con();
